@@ -6,15 +6,6 @@ const btnOrdenar = document.querySelector("#btnGrupo");
 let personajes= [];
 let primeros10=[];
 
-fetch(url)
-  .then(response => response.json())
-  .then(data => {
-   
-    personajes= data.results;
-    mostrarCards(personajes,data);
-  })
-  .catch(error => console.error('Error:', error));
-
 function mostrarCards(data) {
   cards.innerHTML = "";
   data.forEach(personaje => {
@@ -30,14 +21,25 @@ function mostrarCards(data) {
     `;
   });
 
-   const visibles = data.map(({ id, name, status, species }) => ({ id, name, status, species }));
-  console.log("Solo propiedades visibles:", visibles);
 }
 
+fetch(url)
+  .then(response => response.json())
+  .then(data => {
+   
+    personajes= data.results;
+    mostrarCards(personajes,data);
+  })
+  .catch(error => console.error('Error:', error));
+
+
 btnFiltro.addEventListener("click", () => {
- primeros10 = personajes.slice(0,10);
+  primeros10 = personajes
+    .slice(0, 10)
+    .map(({ id, name, status, species, image }) => ({ id, name, status, species, image }));
+
   mostrarCards(primeros10);
- 
+  console.log("Primeros 10 :", primeros10);
 });
 
 btnOrdenar.addEventListener("click", () => {
@@ -69,4 +71,3 @@ for (let especie in separados) {
     });
   }
 });
-
