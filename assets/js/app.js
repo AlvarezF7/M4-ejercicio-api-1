@@ -29,12 +29,15 @@ function mostrarCards(data) {
       </div>
     `;
   });
+
+   const visibles = data.map(({ id, name, status, species }) => ({ id, name, status, species }));
+  console.log("Solo propiedades visibles:", visibles);
 }
 
 btnFiltro.addEventListener("click", () => {
  primeros10 = personajes.slice(0,10);
   mostrarCards(primeros10);
-  console.log(primeros10);
+ 
 });
 
 btnOrdenar.addEventListener("click", () => {
